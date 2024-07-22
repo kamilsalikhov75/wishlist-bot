@@ -14,9 +14,33 @@ datasource db {
 }
 
 model User {
-  id         Int    @id @default(autoincrement())
-  telegramId String @unique
-  username   String @unique
+  id         Int     @id @default(autoincrement())
+  telegramId String  @unique
+  username   String  @unique
   firstName  String
   avatar     String
+  Event      Event[]
+  Wish       Wish[]
+}
+
+model Event {
+  id     Int    @id @default(autoincrement())
+  title  String
+  emoji  String
+  user   User?  @relation(fields: [userId], references: [id])
+  userId Int?
+  Wish   Wish[]
+}
+
+model Wish {
+  id      Int     @id @default(autoincrement())
+  title   String
+  emoji   String
+  reserve Boolean @default(false)
+  link    String?
+  price   Int?
+  event   Event   @relation(fields: [eventId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int
+  eventId Int
 }

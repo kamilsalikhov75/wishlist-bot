@@ -7,9 +7,10 @@ import { UserService } from './user/user.service';
 import { PrismaService } from './prisma/prisma.service';
 import { EventService } from './event/event.service';
 import { EventModule } from './event/event.module';
+import { WishModule } from './wish/wish.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), EventModule],
+  imports: [ConfigModule.forRoot(), EventModule, WishModule],
   controllers: [AppController],
   providers: [BotService, AppService, PrismaService, UserService, EventService],
 })

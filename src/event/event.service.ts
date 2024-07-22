@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
-
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 @Injectable()
 export class EventService {
-  create() {
-    return 'This action adds a new event';
+  constructor(private prisma: PrismaService) {}
+
+  create(data: Prisma.EventCreateInput) {
+    return this.prisma.event.create({ data });
   }
 
-  findAll() {
-    return `This action returns all event`;
+  findAll(userId: number) {
+    return this.prisma.event.findMany({ where: { userId } });
   }
 
   findOne(id: number) {
